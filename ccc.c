@@ -4,7 +4,33 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+extern char **environ;
+char *name;
+char *_getenv(char *name)
+{
+	int len = strlen(name);
+	int i;
 
+	for (i = 0; environ[i] != NULL; i++)
+	{
+		if (strcmp(name, environ[i]) == 0)
+			return (&environ[i][len]);
+	}
+	return (NULL);
+}
+int _printenv(void)
+{
+	char **env;
+
+	env = environ;
+	while (*env)
+	{
+		write(1, *env, sizeof(char) * strlen(*env));
+		write(1, "\n", 1);
+		++env;
+	}
+	return (0);
+}
 /*
   Function Declarations for builtin shell commands:
  */
@@ -213,7 +239,7 @@ void lsh_loop(void)
   int status;
 
   do {
-    printf("> ");
+    printf("($) ");
     line = lsh_read_line();
     args = lsh_split_line(line);
     status = lsh_execute(args);
