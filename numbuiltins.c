@@ -6,8 +6,8 @@ char *builtin_str[] = {
 };
 
 int (*builtin_func[]) (char **) = {
-	&_cd
-	&_exit
+	_cd
+	_exit
 };
 
 /**
