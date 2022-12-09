@@ -30,7 +30,7 @@ int __exit(__attribute__((unused)) char **args)
  * @args: the entered arguments
  * Return: result
  */
-int _launch(__attribute__((unused)) char **args)
+int _launch(char **args)
 {
 
 	pid_t my_pid;
