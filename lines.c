@@ -21,28 +21,19 @@ char *read_line(void)
 		}
 	}
 	return (line);
-	#endif
-}
-#define REAL_BUFSIZE 1024
-/**
- * _else - function
- * Return: result
- */
-char *_else(void)
-{
-	while (read_line)
-	{
-		int buffsize = REAL_BUFSIZE;
-		int postion = 0;
-		char *buffer = malloc(sizeof(char) * buffsize);
-		int c;
-		
-		if (!buffer)
-		{
-			fprintf(stderr, "ssh: allocation error\n");
-			exit(EXIT_FAILURE);
-		}
+	#else
+	#define REAL_BUFSIZE 1024
+	int buffsize = REAL_BUFSIZE;
+	int position = 0;
+	char *buffer = malloc(sizeof(char) * buffsize);
+	int c;
+
+	if (!buffer)
+	{	
+		fprintf(stderr, "ssh: allocation error\n");
+		exit(EXIT_FAILURE);
 	}
+
 	while (1)
 	{
 		c = getchar();
@@ -54,11 +45,11 @@ char *_else(void)
 			return buffer;
 		}
 		else
-			buffer[position = c];
+			buffer[position] = c;
 		position++;
 		if (position >= buffsize)
 		{
-			buffzise += REAL_BUFSIZE;
+			buffsize += REAL_BUFSIZE;
 			buffer = realloc(buffer, buffsize);
 			if (!buffer)
 			{
@@ -67,6 +58,7 @@ char *_else(void)
 			}
 		}
 	}
+	#endif
 }
 #define TOK_BUFSIZE 64
 #define TOK_DELIM " \t\r\n\a"

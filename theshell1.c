@@ -1,48 +1,5 @@
 #include "main.h"
 /**
- * _cd - changes directory
- * @args: the entered arguments
- * Return: result
- */
-int _cd(__attribute__((unused)) char **args)
-{
-	if (args[1] ==  NULL)
-	{
-		fprintf (stderr, "ssh: expected to \"cd\"\n");
-	}	
-	else if (chdir(args[1]) != 0)
-	{
-		perror("ssh");
-	}
-	return 1;
-}
-/**
- * _exit - exit out of shell
- * @args: the entered arguments
- * Return: result
- */
-int __exit(__attribute__((unused)) char **args)
-{
-	return 0;
-}
-char *builtin_str[] = {
-        "cd",
-        "exit"
-};
-
-int (*builtin_func[]) (char **) = {
-        _cd
-        _exit
-};
-
-/**
- * number_bultins - function
- * Return: result
- */
-int number_builtins() {
-        return sizeof(builtin_str) / sizeof(char *);
-}
-/**
  * _launch - launch function
  * @args: the entered arguments
  * Return: result
@@ -81,8 +38,8 @@ int _execute(__attribute__((unused)) char **args)
 	if (args[0] == NULL)
 		return 1;
 	for (i = 0; i < number_builtins(); i++) {
-		if (strcmp(args[0], builtin_str[i] == 0)) {
-			return (*builtin_func[i](args));
+		if (strcmp(args[0], builtin_str[i]) == 0) {
+			return (builtin_func[i](args));
 		}
 	}
 	return(_launch(args));
